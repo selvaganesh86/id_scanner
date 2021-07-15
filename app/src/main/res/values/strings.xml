@@ -4,4 +4,8 @@
     <string name="location_code">Location code</string>
     <string name="save_button_text">Save</string>
     <string name="scan_id_text">Scan ID</string>
+    <string name="valid_till_text">Valid Till:</string>
+    <string name="last_name_text">Last Name :</string>
+    <string name="first_name_text">First Name :</string>
+    <string name="user_photo_desc">User Photo</string>
 </resources>

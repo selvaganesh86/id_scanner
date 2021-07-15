@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "642335096789",
+    "project_id": "digital-id-card",
+    "storage_bucket": "digital-id-card.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:642335096789:android:f4ba3639bd681d0b84875c",
+        "android_client_info": {
+          "package_name": "com.example.digital_id_card"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "642335096789-h30kk0qs83gou39ljacuu3t1qirbsl13.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.digital_id_card",
+            "certificate_hash": "1a45ef38efdd1963917164c9add0615af858fc3c"
+          }
+        },
+        {
+          "client_id": "642335096789-vjdj6nb63r5n8kmivf07s8ojfa2jm439.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZtxmHHetmcPuChRCuojYsZMIbj2iqwuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "642335096789-vjdj6nb63r5n8kmivf07s8ojfa2jm439.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:642335096789:android:d5da4df534e676a184875c",
+        "android_client_info": {
+          "package_name": "com.example.idscanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "642335096789-vjdj6nb63r5n8kmivf07s8ojfa2jm439.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZtxmHHetmcPuChRCuojYsZMIbj2iqwuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "642335096789-vjdj6nb63r5n8kmivf07s8ojfa2jm439.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
