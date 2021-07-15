@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">IDScanner</string>
+    <string name="scb_logo_desc">SCB logo</string>
+    <string name="location_code">Location code</string>
+    <string name="save_button_text">Save</string>
+    <string name="scan_id_text">Scan ID</string>
+</resources>
