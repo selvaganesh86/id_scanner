@@ -128,6 +128,8 @@ public class idscan extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         Log.d("read_user", "onFailure: user key not read from firestore");
                         progressbar.setVisibility(View.GONE);
+                        Toast.makeText(idscan.this, "Invalid QR Code", Toast.LENGTH_LONG).show();
+
                     }
                 });
 
