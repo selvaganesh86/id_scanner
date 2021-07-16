@@ -68,7 +68,7 @@ public class idscan extends AppCompatActivity {
                 Log.i("scanned_user_details", "while scanning: " + this.scan_user);
                 //scannedtextview.setText("Key-> " +separated[0]+ "  User-> "+separated[1]);//no need to show scanned text errors are shown via toast//tg_edit
                 //scannedtextview.setText(scan_user);//no need to show scanned text errors are shown via toast//tg_edit
-                Toast.makeText(this, scannedString, Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, scannedString, Toast.LENGTH_LONG).show();
                 //firestore_connect_begin
                 db.collection("users").document(scan_user)
                         .get()
