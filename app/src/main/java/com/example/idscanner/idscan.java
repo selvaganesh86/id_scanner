@@ -112,12 +112,13 @@ public class idscan extends AppCompatActivity {
                                                     );
                                         } else {
                                             sdetail.setResult("Failure");
-
                                             // write into firestore
                                             db.collection("entry_log/" + scan_user + "/logs")
                                                     .document()
                                                     .set(sdetail);
                                             progressbar.setVisibility(View.GONE);
+                                            Toast.makeText(idscan.this, "Invalid QR Code", Toast.LENGTH_LONG).show();
+
                                         }
                                     }
                                 }
