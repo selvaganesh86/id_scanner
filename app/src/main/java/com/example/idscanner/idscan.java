@@ -45,10 +45,13 @@ public class idscan extends AppCompatActivity {
     private ImageView userphotoimageview;
     private ProgressBar progressbar;
     private CardView cardview;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    scandetails sdetail = new scandetails();
 //tg_edit_begin
-@Override
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+
     if (result != null) {
         //if qrcode has nothing in it
         if (result.getContents() == null) {
@@ -59,66 +62,14 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             try {
 
                 String scannedString = new String(result.getContents());
-                String[] separatedScannedString = scannedString. split(":");//note if document  path to firebase goes NULL - means this delim was not found
-                scan_key=separatedScannedString[0];
-                scan_user=separatedScannedString[1];
+                String[] separatedScannedString = scannedString. split("#");//note if document  path to firebase goes NULL - means this delim was not found
+                scan_key=separatedScannedString[1];
+                scan_user=separatedScannedString[0];
+                Log.i("scanned_user_details", "while scanning: " + this.scan_user);
                 //scannedtextview.setText("Key-> " +separated[0]+ "  User-> "+separated[1]);//no need to show scanned text errors are shown via toast//tg_edit
-                //scannedtextview.setText(obj);//no need to show scanned text errors are shown via toast//tg_edit
-
-            } catch (Exception e) {
-                e.printStackTrace();
-
-                Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
-            }
-        }
-    } else {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-}
-//tg_edit_end
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_idscan);
-
-        // hide the title bar and give fullscreen appearance
-        getSupportActionBar().hide();
-
-        locationtextview=findViewById(R.id.textViewlocationshow);
-        scanidbutton=findViewById(R.id.Buttonscanid);
-        //scannedtextview = (TextView) findViewById(R.id.scannedtextview);//no need to show scanned text errors are shown via toast//tg_edit
-        fnametextview = findViewById(R.id.textViewdatafname);
-        lnametextview = findViewById(R.id.textViewdatalname);
-        validtilltextview = findViewById(R.id.textViewdatavalid);
-        userphotoimageview = findViewById(R.id.imageviewuserphoto);
-        progressbar = findViewById(R.id.progressBar);
-        cardview = findViewById(R.id.cview);
-
-        loc_received = getIntent().getStringExtra("loc_pass");
-
-        locationtextview.setText("Scan Location: "+loc_received);
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        scandetails sdetail = new scandetails();
-
-        qrScan = new IntentIntegrator(this);
-
-        scanidbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressbar.setVisibility(View.VISIBLE);
-
-                sdetail.setLocation(loc_received);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yyyy HH-mm-ss");
-                String timestampformat = simpleDateFormat.format(new Date());
-                sdetail.setTimestamp(timestampformat);
-                //tg_edit_begin
-                qrScan.initiateScan();
-                //tg_edit_end++need to remove below 2 Lines once scanning actualCodes
-                scan_key ="9951970";
-                scan_user="selva86.junk@gmail.com";
-                //tg_changing the-below to allow string input
+                //scannedtextview.setText(scan_user);//no need to show scanned text errors are shown via toast//tg_edit
+                Toast.makeText(this, scannedString, Toast.LENGTH_LONG).show();
+                //firestore_connect_begin
                 db.collection("users").document(scan_user)
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -172,13 +123,75 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
                                 }
                             }
                         }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d("read_user", "onFailure: user key not read from firestore");
-                                progressbar.setVisibility(View.GONE);
-                            }
-                        });
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("read_user", "onFailure: user key not read from firestore");
+                        progressbar.setVisibility(View.GONE);
+                    }
+                });
 
+//firestore_connect_end
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
+            }
+        }
+    } else {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+}
+//tg_edit_end
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_idscan);
+
+        // hide the title bar and give fullscreen appearance
+        getSupportActionBar().hide();
+
+        locationtextview=findViewById(R.id.textViewlocationshow);
+        scanidbutton=findViewById(R.id.Buttonscanid);
+        //scannedtextview = (TextView) findViewById(R.id.scannedtextview);//no need to show scanned text errors are shown via toast//tg_edit
+        fnametextview = findViewById(R.id.textViewdatafname);
+        lnametextview = findViewById(R.id.textViewdatalname);
+        validtilltextview = findViewById(R.id.textViewdatavalid);
+        userphotoimageview = findViewById(R.id.imageviewuserphoto);
+        progressbar = findViewById(R.id.progressBar);
+        cardview = findViewById(R.id.cview);
+        qrScan = new IntentIntegrator(this);
+        loc_received = getIntent().getStringExtra("loc_pass");
+
+        locationtextview.setText("Scan Location: "+loc_received);
+        //test_1_begin
+
+        //tset1-end
+
+
+
+
+
+
+        scanidbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressbar.setVisibility(View.VISIBLE);
+
+                sdetail.setLocation(loc_received);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yyyy HH-mm-ss");
+                String timestampformat = simpleDateFormat.format(new Date());
+                sdetail.setTimestamp(timestampformat);
+                //tg_edit_begin
+
+                qrScan.initiateScan();
+
+                //tg_edit_end++need to remove below 2 Lines once scanning actualCodes
+                //scan_key ="9951970";
+                //scan_user="selva86.junk@gmail.com";
+                //scan_user= (String) scannedtextview.getText();
+                Log.i("scanned_user_details", "while entering FIREBASE: " + scan_user);
+                //tg_changing the-below to allow string input
 
             }
         });
